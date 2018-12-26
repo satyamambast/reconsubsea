@@ -21,13 +21,13 @@ class digcamera(object):
         print("payload_size: {}".format(self.payload_size))
     def show(self):
         while len(self.data) < self.payload_size:
-            print("Recv: {}".format(len(self.data)))
+            #print("Recv: {}".format(len(self.data)))
             self.data += self.conn.recv(4096)
-        print("Done Recv: {}".format(len(self.data)))
+        #print("Done Recv: {}".format(len(self.data)))
         packed_msg_size = self.data[:self.payload_size]
         self.data = self.data[self.payload_size:]
         msg_size = struct.unpack(">L", packed_msg_size)[0]
-        print("msg_size: {}".format(msg_size))
+        #print("msg_size: {}".format(msg_size))
         while len(self.data) < msg_size:
             self.data += self.conn.recv(4096)
         frame_data = self.data[:msg_size]
@@ -48,7 +48,7 @@ if __name__=='__main__':
     print('Socket bind complete')
     s.listen(10)
     print('Socket now listening')
-    ip=ipcamera('rtsp://admin:@169.254.99.116/user=admin&password=&channel=1&stream=0.sdp?')
+    ip=ipcamera('rtsp://admin:@192.168.1.41/user=admin&password=&channel=1&stream=0.sdp?')
     dig=digcamera(s)
     while True:
         ip.show()
