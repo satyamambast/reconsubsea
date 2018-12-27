@@ -101,8 +101,8 @@ if __name__=='__main__':
     """ip=ipcamera('rtsp://admin:@192.168.1.41/user=admin&password=&channel=1&stream=0.sdp?')
     dig=digcamera(s)"""
     ip='rtsp://admin:@192.168.1.41/user=admin&password=&channel=1&stream=0.sdp?'
-    t1=threading.Thread(target=ipshow, args=(ip,'4'))
-    t2=threading.Thread(target=digitalshow, args=(s,'5'))
+    t1=threading.Thread(target=ipshow, args=(ip,'IP Camera 1'))
+    t2=threading.Thread(target=digitalshow, args=(s,'Digital Camera 1'))
     t1.start()
     t2.start()
     t1.join()
