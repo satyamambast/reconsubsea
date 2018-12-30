@@ -4,11 +4,15 @@ from math import sqrt
 cap=cv2.VideoCapture(0)
 kernelOpen=np.ones((5,5))
 kernelClose=np.ones((20,20))
+turn_threshold_1=80
+turn_threshold_2=50
+turn_threshold_3=20
+
 
 def find_contour(frame,x,y):
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    lower = np.array([-20,100,100])
-    upper = np.array([10,255,255])
+    lower = np.array([-10,50,50])
+    upper = np.array([8,255,255])
     mask = cv2.inRange(hsv, lower, upper)
     res = cv2.bitwise_and(frame,frame, mask= mask)
     maskOpen=cv2.morphologyEx(mask,cv2.MORPH_OPEN,kernelOpen)
@@ -22,9 +26,23 @@ def find_contour(frame,x,y):
         cx=int(m["m10"]/m["m00"])
         #cy=int(m["m01"]/m["m00"])
         cv2.circle(frame,(cx,y),7,(255,0,0),2)
-        dist=(sqrt((x-cx)**2+(y-y)**2))
+        dist=cx-x
         return dist
     return None
+def turnright():
+    pass
+def turnleft():
+def set_speed(v):
+    pass
+def thrustercontrol(x1,x2,x3):
+    if x1==x2==x3==None:
+        set_speed(0)
+    elif x1!=None or x2!=None or x3!=None and curr_speed==None:
+        set_speed(1)
+    if x2>turn_threshold_2:
+        turnright()
+    elif x2<-(turn_threshold_2):
+        turnleft()
 while True:
     _,frame=cap.read()
     res=cv2.resize(frame,(320,240))
