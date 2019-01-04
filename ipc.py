@@ -1,6 +1,6 @@
 import numpy as num
 import cv2
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('rtsp://admin:@192.168.2.41/user=admin&password=&channel=1&stream=0.sdp?')
 
 while(True):
     # Capture frame-by-frame
